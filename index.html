@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Samriddhi</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: linear-gradient(180deg, #fff5f7 0%, #ffeef2 50%, #fff8f0 100%);
+    color: #4a3b3b;
+    scroll-behavior: smooth;
+  }
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    overflow: hidden;
+  }
+  .hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    z-index: 0;
+    background: #2a1c20;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,245,247,0.55) 0%, rgba(255,238,242,0.65) 60%, rgba(255,248,240,0.8) 100%);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero .tag {
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    color: #c17a89;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    color: #8a4a5c;
+    font-weight: 400;
+    margin-bottom: 15px;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: #a5717f;
+    font-style: italic;
+  }
+  .scroll-hint {
+    margin-top: 60px;
+    font-size: 0.8rem;
+    color: #c69aa5;
+    letter-spacing: 2px;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+  .section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #8a4a5c;
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+  }
+  .photo-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(140,80,100,0.12);
+    transition: transform 0.3s ease;
+  }
+  .photo-card:hover { transform: translateY(-6px); }
+  .photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: repeating-linear-gradient(45deg, #fce4ec, #fce4ec 10px, #fdf0f3 10px, #fdf0f3 20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d3a6b1;
+    font-size: 0.85rem;
+  }
+  .photo-caption {
+    padding: 14px;
+    text-align: center;
+    font-style: italic;
+    color: #a5717f;
+    font-size: 0.95rem;
+  }
+  .photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    display: block;
+  }
+  .video-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .bday-video {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(140,80,100,0.12);
+  }
+  .letter-btn-wrap {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .letter-btn {
+    background: #c17a89;
+    color: #fff;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-family: inherit;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(193,122,137,0.35);
+    transition: background 0.3s ease;
+  }
+  .letter-btn:hover { background: #a5606f; }
+  .letter {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    padding: 50px 40px;
+    box-shadow: 0 10px 30px rgba(140,80,100,0.1);
+    line-height: 2;
+    font-size: 1.05rem;
+    color: #5a4448;
+  }
+  .letter.visible { display: block; animation: fadeIn 1s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+  .letter p { margin-bottom: 18px; }
+  .signature {
+    margin-top: 30px;
+    text-align: right;
+    font-style: italic;
+    color: #8a4a5c;
+  }
+  .closing {
+    text-align: center;
+    padding: 80px 20px 100px;
+  }
+  .closing h2 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    color: #8a4a5c;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .closing .sub {
+    color: #b98a95;
+    font-style: italic;
+  }
+  .heart-divider {
+    text-align: center;
+    color: #d3a6b1;
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+  .quiz-block {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    text-align: center;
+  }
+  .quiz-question {
+    font-size: 1.3rem;
+    color: #8a4a5c;
+    margin-bottom: 30px;
+    font-style: italic;
+  }
+  .quiz-options {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .quiz-option {
+    background: #fff;
+    border: 2px solid #eec3cd;
+    color: #a5717f;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 18px rgba(140,80,100,0.08);
+  }
+  .quiz-option:hover {
+    background: #c17a89;
+    color: #fff;
+    border-color: #c17a89;
+  }
+  .quiz-response {
+    display: none;
+    margin-top: 25px;
+    color: #8a4a5c;
+    font-style: italic;
+    font-size: 1.05rem;
+    animation: fadeIn 0.8s ease;
+  }
+  .quiz-response.visible { display: block; }
+  .continue-btn {
+    display: none;
+    margin-top: 25px;
+    background: transparent;
+    border: none;
+    color: #c17a89;
+    font-family: inherit;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .continue-btn.visible { display: inline-block; }
+  .gated { display: none; }
+  .gated.unlocked { display: block; }
+</style>
+</head>
+<body>
+
+<audio id="bg-song" src="media/love-song.mp3" preload="auto"></audio>
+
+<div class="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="media/video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tag">for you</div>
+    <h1>Happy Birthday, Samriddhi 💛</h1>
+    <p>always in my thoughts</p>
+    <div class="scroll-hint">↓ scroll down ↓</div>
+  </div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-question">Quick, very serious question: do you love me?</div>
+  <div class="quiz-options">
+    <button class="quiz-option" onclick="answerQuiz(this, 'qf')">Yes</button>
+    <button class="quiz-option" onclick="answerQuiz(this, 'qf')">Yes</button>
+  </div>
+  <div class="quiz-response" id="qf-response">There was never another option, baby.</div>
+  <button class="continue-btn" id="qf-continue" onclick="unlock('gallery-section', this)">continue ↓</button>
+</div>
+
+<section class="gated" id="gallery-section">
+  <div class="section-title">Collected Moments</div>
+  <div class="gallery">
+    <div class="photo-card">
+      <img class="photo" src="media/us-bridge.jpeg" alt="you & roses">
+      <div class="photo-caption">our favorite kind of evening 🧡</div>
+    </div>
+    <div class="photo-card">
+      <img class="photo" src="media/little-you.jpeg" alt="little Samriddhi">
+      <div class="photo-caption">little you 🥹</div>
+    </div>
+    <div class="photo-card">
+      <img class="photo" src="media/red-smile.jpeg" alt="Samriddhi smiling">
+      <div class="photo-caption">my favourite smile 💛</div>
+    </div>
+    <div class="photo-card">
+      <img class="photo" src="media/field-smile.jpeg" alt="Samriddhi in the field">
+      <div class="photo-caption">adventure girl 🌿</div>
+    </div>
+    <div class="photo-card">
+      <img class="photo" src="media/pink-palm.jpeg" alt="Samriddhi in pink">
+      <div class="photo-caption">pretty details 🌺</div>
+    </div>
+    <div class="photo-card">
+      <img class="photo" src="media/us-tree.jpeg" alt="us under the tree">
+      <div class="photo-caption">us 🖤</div>
+    </div>
+    <div class="photo-card">
+      <img class="photo" src="media/sweetie-eyes.jpeg" alt="sweetie">
+      <div class="photo-caption">sweetie 👀</div>
+    </div>
+  </div>
+
+  <div class="quiz-block">
+    <div class="quiz-question">Which memory do you think about more?</div>
+    <div class="quiz-options">
+      <button class="quiz-option" onclick="answerQuiz(this, 'q2')">The metro</button>
+      <button class="quiz-option" onclick="answerQuiz(this, 'q2')">The ghat</button>
+    </div>
+    <div class="quiz-response" id="q2-response">Both. You're stuck in my head rent-free.</div>
+    <button class="continue-btn" id="q2-continue" onclick="unlock('letter-section', this)">continue ↓</button>
+  </div>
+</section>
+
+<section class="gated" id="letter-section">
+  <div class="letter-btn-wrap">
+    <button class="letter-btn" onclick="document.getElementById('letter').classList.add('visible'); this.style.display='none'; playForLetter();">
+      READ MY LETTER FOR YOU 🌸
+    </button>
+  </div>
+
+  <div class="letter" id="letter">
+    <p>Samriddhi,</p>
+    <p>
+      There are a thousand things I want to say to you today, and somehow none of them
+      feel like enough. So let me just start.
+    </p>
+    <p>
+      You walked into my life and made it softer, warmer, without even trying to.
+      The way you laugh, the way you notice the little things, the way you carry
+      yourself through everything — I don't think I've ever really stopped noticing it.
+    </p>
+    <p>
+      We had a good start, the kind that felt easy and certain. And somewhere in the
+      middle, things didn't go the way we thought they would. There were ups, and
+      there were downs, days that tested us in ways we didn't expect. But somehow,
+      through all of it, we've only come out stronger. And I carry a quiet feeling
+      that everything is going to work out — that we'll find our way back to each other.
+    </p>
+    <p>
+      I still remember the small things. Like that moment on the metro, when I just
+      looked at you without saying a word — no expression, nothing — just my eyes
+      quietly asking if you were okay. Or that evening at the ghat, when you were
+      sitting there and looked so beautiful it stayed with me long after. Every
+      moment with you, even the smallest, quietest ones, still feels special to me.
+      Those moments live in me even now.
+    </p>
+    <p>
+      No matter what happened in the past, and no matter what the future holds —
+      I love you. That much has never changed and never will.
+    </p>
+    <p>
+      On your birthday, I just want you to feel it — how loved you are, how much
+      you deserve every good thing coming your way.
+    </p>
+    <p>
+      Happy Birthday, Samriddhi. Today is yours. I hope it's every bit as beautiful
+      as you are.
+    </p>
+    <div class="signature">— always, Arpit 💛</div>
+  </div>
+
+  <div class="quiz-block">
+    <div class="quiz-question">Past, present, or future — where's my favorite place with you?</div>
+    <div class="quiz-options">
+      <button class="quiz-option" onclick="answerQuiz(this, 'q3')">Future</button>
+      <button class="quiz-option" onclick="answerQuiz(this, 'q3')">Right now</button>
+    </div>
+    <div class="quiz-response" id="q3-response">Wherever you are — that's not an answer, that's just a fact.</div>
+    <button class="continue-btn" id="q3-continue" onclick="unlock('final-question-section', this)">continue ↓</button>
+  </div>
+</section>
+
+<section class="gated" id="final-question-section">
+  <div class="quiz-block">
+    <div class="quiz-question">If I had to describe you in one word, it'd be...</div>
+    <div class="quiz-options">
+      <button class="quiz-option" onclick="answerQuiz(this, 'q1')">Beautiful</button>
+      <button class="quiz-option" onclick="answerQuiz(this, 'q1')">Home</button>
+    </div>
+    <div class="quiz-response" id="q1-response">MINE.</div>
+    <button class="continue-btn" id="q1-continue" onclick="unlock('closing-section', this)">continue ↓</button>
+  </div>
+</section>
+
+<div class="gated" id="closing-section">
+  <div class="closing">
+    <div class="heart-divider">🌸</div>
+    <h2>Happy Birthday, Samriddhi</h2>
+    <div class="sub">today, tomorrow, and always...</div>
+  </div>
+</div>
+
+<script>
+let songStarted = false;
+function startSong() {
+  if (songStarted) return;
+  songStarted = true;
+  const audio = document.getElementById('bg-song');
+  audio.volume = 0;
+  audio.play().catch(() => {});
+  let v = 0;
+  const fade = setInterval(() => {
+    v += 0.05;
+    if (v >= 0.6) { v = 0.6; clearInterval(fade); }
+    audio.volume = v;
+  }, 150);
+}
+
+function playForLetter() {
+  const audio = document.getElementById('bg-song');
+  if (audio.ended || audio.paused) {
+    audio.currentTime = 0;
+    audio.volume = 0;
+    audio.play().catch(() => {});
+    let v = 0;
+    const fade = setInterval(() => {
+      v += 0.05;
+      if (v >= 0.6) { v = 0.6; clearInterval(fade); }
+      audio.volume = v;
+    }, 150);
+  }
+}
+
+function answerQuiz(btn, qid) {
+  startSong();
+  const group = btn.parentElement;
+  group.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+  document.getElementById(qid + '-response').classList.add('visible');
+  document.getElementById(qid + '-continue').classList.add('visible');
+}
+function unlock(id, btn) {
+  const quizBlock = btn.closest('.quiz-block');
+  if (quizBlock) {
+    quizBlock.style.transition = 'opacity 0.4s ease, max-height 0.5s ease';
+    quizBlock.style.maxHeight = quizBlock.scrollHeight + 'px';
+    requestAnimationFrame(() => {
+      quizBlock.style.opacity = '0';
+      quizBlock.style.maxHeight = '0';
+      quizBlock.style.overflow = 'hidden';
+      quizBlock.style.padding = '0';
+      quizBlock.style.margin = '0';
+    });
+  }
+  const el = document.getElementById(id);
+  el.classList.add('unlocked');
+  setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 350);
+}
+</script>
+
+</body>
+</html>
